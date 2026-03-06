@@ -1,21 +1,35 @@
 # Claude SwiftBar
 
-macOS menu bar plugin that shows your Claude Code usage at a glance.
+macOS menu bar plugin that shows your Claude Code rate limits and token usage at a glance.
 
 ![menu bar](https://img.shields.io/badge/macOS-menu%20bar-black?style=flat-square) ![swiftbar](https://img.shields.io/badge/SwiftBar-plugin-blue?style=flat-square)
 
 ## What it shows
 
-**Menu bar:** `[claude icon] 0% @5pm` — 5-hour block usage with reset time
+**Menu bar:**
+
+```
+[claude icon] 0% @5pm
+```
+
+Shows 5-hour block usage percentage and when it resets.
 
 **Dropdown:**
-- **Rate Limits** — 5hr block, weekly, and Sonnet usage percentages with reset times (color-coded: green/yellow/red)
-- **Token Usage** — today and this month (tokens + estimated cost via [ccusage](https://github.com/ryoppippi/ccusage))
 
-**Claude Code statusline** (in terminal):
 ```
-[Opus 4.6] Ctx: 12% (24K/200K) | 5hr: 0% @5pm | Wk: 73% @1pm | Son: 41% @sun
+Rate Limits
+  5hr Block: 0% (resets @5pm)       <- green
+  Weekly: 73% (resets @1pm)          <- yellow
+  Sonnet: 41% (resets @sun)          <- green
+
+Token Usage
+  Today: 34.6M . $17.46
+  This Month: 904.6M . $511.44
 ```
+
+Rate limit colors: green (<50%), yellow (50-80%), red (80%+).
+
+The setup script also installs a **Claude Code terminal statusline** that shows the same rate limit info inline while you work.
 
 ## Quick Install
 
