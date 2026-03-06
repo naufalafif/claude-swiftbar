@@ -1,0 +1,47 @@
+name: Lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  shellcheck:
+    name: ShellCheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run ShellCheck on setup.sh
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: .
+          additional_files: "setup.sh claude-usage.5m.sh"
+          severity: warning
+
+  python-syntax:
+    name: Python Syntax
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check embedded Python in setup.sh
+        run: |
+          python3 << 'PYCHECK'
+          import re, ast, sys
+          with open("setup.sh") as f:
+              content = f.read()
+          match = re.search(r"python3 << 'PYEOF'\n(.*?)\nPYEOF", content, re.DOTALL)
+          if not match:
+              print("ERROR: No embedded Python found")
+              sys.exit(1)
+          code = match.group(1).replace("\\$", "$")
+          try:
+              ast.parse(code)
+              print("setup.sh embedded Python: OK")
+          except SyntaxError as e:
+              print(f"Syntax error: {e}")
+              sys.exit(1)
+          PYCHECK

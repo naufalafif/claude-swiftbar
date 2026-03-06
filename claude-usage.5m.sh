@@ -26,8 +26,10 @@ refresh_oauth() {
 
 # Refresh token cache via ccusage in parallel
 refresh_tokens() {
-    local TODAY=$(date +%Y%m%d)
-    local MONTH_START=$(date +%Y%m01)
+    local TODAY
+    TODAY=$(date +%Y%m%d)
+    local MONTH_START
+    MONTH_START=$(date +%Y%m01)
     ccusage daily --since "$TODAY" --json --offline --no-color > "$TOKEN_CACHE/daily.json" 2>/dev/null &
     ccusage monthly --since "$MONTH_START" --json --offline --no-color > "$TOKEN_CACHE/monthly.json" 2>/dev/null &
     wait
