@@ -4,7 +4,7 @@
 # <bitbar.author>naufal</bitbar.author>
 # <bitbar.desc>Shows Claude Code rate limits and token usage</bitbar.desc>
 
-export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/Users/naufal/.nvm/versions/node/v22.14.0/bin:$PATH"
+export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:$PATH"
 
 CACHE_FILE="$HOME/.claude/usage-cache.json"
 TOKEN_CACHE="/tmp/ccusage-swiftbar"

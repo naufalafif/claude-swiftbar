@@ -23,18 +23,6 @@ command -v brew &>/dev/null || err "Homebrew is required. Install from https://b
 command -v python3 &>/dev/null || err "Python 3 is required"
 command -v jq &>/dev/null || { log "Installing jq..."; brew install jq; }
 
-# --- Detect Node.js path (nvm or system) ---
-NODE_BIN=""
-if [ -d "$HOME/.nvm" ]; then
-    NVM_NODE=$(ls -d "$HOME/.nvm/versions/node"/*/bin 2>/dev/null | sort -V | tail -1)
-    [ -n "$NVM_NODE" ] && NODE_BIN="$NVM_NODE"
-fi
-if [ -z "$NODE_BIN" ]; then
-    NODE_BIN=$(dirname "$(which node 2>/dev/null)" || echo "")
-fi
-[ -z "$NODE_BIN" ] && err "Node.js is required for ccusage. Install via nvm or brew install node"
-log "Using Node.js from: $NODE_BIN"
-
 # --- Install SwiftBar ---
 if [ -d "/Applications/SwiftBar.app" ]; then
     log "SwiftBar already installed"
@@ -50,12 +38,12 @@ mkdir -p "$PLUGIN_DIR"
 defaults write com.ameba.SwiftBar PluginDirectory "$PLUGIN_DIR" 2>/dev/null || true
 log "Plugin directory: $PLUGIN_DIR"
 
-# --- Install ccusage globally ---
-if PATH="$NODE_BIN:$PATH" command -v ccusage &>/dev/null; then
+# --- Install ccusage ---
+if command -v ccusage &>/dev/null; then
     log "ccusage already installed"
 else
     log "Installing ccusage..."
-    PATH="$NODE_BIN:$PATH" npm install -g ccusage
+    brew install ccusage
 fi
 
 # --- Download Claude icon ---
@@ -80,9 +68,9 @@ cat > "$PLUGIN_FILE" << 'PLUGIN_HEADER'
 
 PLUGIN_HEADER
 
-cat >> "$PLUGIN_FILE" << EOF
-export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:${NODE_BIN}:\$PATH"
-EOF
+cat >> "$PLUGIN_FILE" << 'PLUGIN_PATH'
+export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:$PATH"
+PLUGIN_PATH
 
 cat >> "$PLUGIN_FILE" << 'PLUGIN_BODY'
 

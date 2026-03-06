@@ -48,7 +48,7 @@ bash setup.sh
 ## What the setup does
 
 1. Installs [SwiftBar](https://github.com/swiftbar/SwiftBar) (if not present)
-2. Installs [ccusage](https://github.com/ryoppippi/ccusage) globally (for token/cost tracking)
+2. Installs [ccusage](https://github.com/ryoppippi/ccusage) via Homebrew (for token/cost tracking)
 3. Installs `jq` (if not present)
 4. Downloads and embeds the Claude icon
 5. Writes the SwiftBar plugin to `~/Plugins/SwiftBar/`
@@ -60,7 +60,6 @@ bash setup.sh
 
 - macOS
 - [Homebrew](https://brew.sh)
-- [Node.js](https://nodejs.org) (via nvm or system install)
 - Python 3 (comes with macOS)
 - Claude Code (logged in via OAuth)
 
@@ -77,7 +76,7 @@ bash setup.sh
 | File | Description |
 |------|-------------|
 | `setup.sh` | One-command installer |
-| `claude-usage.5m.sh` | SwiftBar plugin (reference copy — setup generates this with your Node.js path and icon) |
+| `claude-usage.5m.sh` | SwiftBar plugin (reference copy — setup generates this with embedded icon) |
 | `claude.png` | Claude icon source |
 
 ## Uninstall
@@ -86,7 +85,7 @@ bash setup.sh
 rm ~/Plugins/SwiftBar/claude-usage.5m.sh
 rm ~/.claude/statusline.sh
 brew uninstall --cask swiftbar  # optional
-npm uninstall -g ccusage        # optional
+brew uninstall ccusage          # optional
 ```
 
 ## License
