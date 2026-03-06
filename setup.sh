@@ -170,9 +170,9 @@ def load_tokens(name):
             tokens = t["totalTokens"]
             cost = t["totalCost"]
             fmt = f"{tokens/1e6:.1f}M" if tokens >= 1e6 else f"{tokens/1e3:.1f}K" if tokens >= 1e3 else str(tokens)
-            return fmt, f"\\\${cost:.2f}"
+            return fmt, f"\${cost:.2f}"
     except:
-        return "0", "\\\$0.00"
+        return "0", "\$0.00"
 
 day_tk, day_cost = load_tokens("daily")
 month_tk, month_cost = load_tokens("monthly")
