@@ -1,10 +1,18 @@
 # Claude SwiftBar
 
+<p align="center">
+  <img src="logo.png" alt="Claude SwiftBar" width="128">
+</p>
+
 macOS menu bar plugin that shows your Claude Code rate limits and token usage at a glance.
 
 ![menu bar](https://img.shields.io/badge/macOS-menu%20bar-black?style=flat-square) ![swiftbar](https://img.shields.io/badge/SwiftBar-plugin-blue?style=flat-square)
 
 ## What it shows
+
+<p align="center">
+  <img src="ss.png" alt="Screenshot" width="500">
+</p>
 
 **Menu bar:**
 
